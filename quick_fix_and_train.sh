@@ -30,10 +30,8 @@ print(f"找到 {len(cif_files)} 个 CIF 文件")
 csv_path = os.path.join(data_dir, 'id_prop.csv')
 
 with open(csv_path, 'w') as f:
-    # 写入 header
-    f.write('id,target\n')
-
-    # 为每个 CIF 文件写入一行
+    # 不写入 header（训练脚本不支持 header）
+    # 直接写入数据行
     for cif_file in cif_files:
         # 获取文件名（不含扩展名）
         basename = os.path.basename(cif_file)
@@ -45,7 +43,7 @@ with open(csv_path, 'w') as f:
         f.write(f'{file_id},{target}\n')
 
 print(f"✓ 已创建 {csv_path}")
-print(f"  总行数: {len(cif_files) + 1} (含 header)")
+print(f"  总行数: {len(cif_files)} (无 header)")
 
 # 显示内容
 print("\n前5行:")
@@ -54,7 +52,7 @@ with open(csv_path, 'r') as f:
         if i < 5:
             print(f"  {line.strip()}")
 
-print("\n✓ id_prop.csv 格式正确！")
+print("\n✓ id_prop.csv 格式正确（无 header，直接数据行）！")
 PYTHON_EOF
 
 if [ $? -ne 0 ]; then
